@@ -3,15 +3,18 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt 
+import os
 
 st.title('**Uber a Lyft v Bostnu**')
 
 from PIL import Image
 im_container = st.beta_container()
 #col1 = st.beta_columns(1)
-img = Image.open('uber lyft.png')
+#img = Image.open('uber lyft.png')
+img = Image.open(os.path.join(r'C:\Users\petr\Desktop\pr\uber lyft.png'))
 with im_container:
     st.image(img)
+    
     
 st.subheader('''
 Dataset ke zpracování je dostupný zde:
