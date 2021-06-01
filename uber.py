@@ -7,15 +7,18 @@ import os
 
 st.title('**Uber a Lyft v Bostnu**')
 
+
 from PIL import Image
 im_container = st.beta_container()
-#col1 = st.beta_columns(1)
 #img = Image.open('uber lyft.png')
-img = Image.open(os.path.join(r'C:\Users\petr\Desktop\pr\uber lyft.png'))
+#img = Image.open(os.path.join(r'C:\Users\petr\Desktop\pr\uber lyft.png'))
+#with im_container:
+#    st.image(img)
+img = Image.open('./obrazek/uber lyft.PNG')    
 with im_container:
     st.image(img)
-    
-    
+
+
 st.subheader('''
 Dataset ke zpracování je dostupný zde:
 https://www.kaggle.com/brllrb/uber-and-lyft-dataset-boston-ma
@@ -368,8 +371,11 @@ with cena_vzdalenost:
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.text("""
     Graf popisuje vztah mezi ujetou vzdáleností a cenou. 
-    Je vidět, že sklon přímky vykreslené pro Lyft je o maličko strmější než u Uberu. 
-    To nám říká, že účtovaná sazba za ujetou vzdálenost roste rychleji u Lyftu než u Uberu.
+    Zde jsem pro vykreslení regresních přímek použil funkci "sample". 
+    Ta z celeho datasetu vybere náhodně 100 řádku.
+    Proto se sklon přímek bude s každým načtením měnit.
+    Ten kdo bude mít křivku strmější, u toho roste cena v zavíslosti na ujeté vzdálenosti 
+    rychleji než u druhého.
     """)
 
 cena_tyden = st.beta_container()
