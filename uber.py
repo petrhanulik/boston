@@ -22,9 +22,16 @@ with im_container:
 st.subheader('''
 Dataset ke zpracování je dostupný zde:
 https://www.kaggle.com/brllrb/uber-and-lyft-dataset-boston-ma
-Daset je dle autora ideální zejména pro sestavení modelu lineární regrese.
+Dataset je dle autora ideální zejména pro sestavení modelu lineární regrese.
 Model sestavovat nebudu.
 Popíšu zde, čím se Uber odlišuje od Lyftu.
+K úpravě dat napíšu skript v Pythonu a použiji tyto knihovny:
+- numpy,
+- pandas,
+- seaborn,
+- matplotlib,
+- pillow.
+
 ''')
 
 @st.cache
@@ -42,7 +49,7 @@ if st.checkbox('Ukaž výchozí dataset'):
 
 chybejici_hodnoty = st.beta_container()
 with chybejici_hodnoty:
-    st.subheader(' Zobrazim si chybejici hodnoty')
+    st.subheader(' Zobrazím si chybějící hodnoty')
     fig = plt.figure()
     sns.heatmap(df.isnull(), cbar=False)
     st.pyplot(fig)
@@ -57,7 +64,7 @@ df.shape
 st.info("""I po vyčištění dat mi zbylo v datasetu 637 976 řádků a 11 sloupců.
          Data jsou v rozmezí od 26.11. do 18.12.2018. Postupně budu souborem procházet
          a klást si otázky týkající se Uberu a Lyftu.
-        Na ně si odpovím především grafickou formou, a rovněž letmým komentářem.
+         Na ně si odpovím především grafickou formou, a rovněž letmým komentářem.
 """)
 
 vic_zakazniku = st.beta_container()
@@ -115,14 +122,14 @@ with ujeta_vzdalenost:
     plt.xlabel('')
     st.pyplot(fig)
     st.text("""
-        Medián ceny obou taxislužeb se nachází po hodnotou 20 dolarů.
-        Uber má míň odlehlých hodnot oprati Lyftu.
+        Medián ceny obou taxislužeb se nachází pod hodnotou 20 dolarů.
+        Uber má míň odlehlých hodnot oproti Lyftu.
     """)
 
 
 ujeta_vzdalenost = st.beta_container()
 with ujeta_vzdalenost:
-    st.subheader('Nyní chci vidět průměrnou ujetou vzdálenost, také zde si využiji boxplot')
+    st.subheader('Nyní chci vidět průměrnou ujetou vzdálenost, také zde si naprogramuji boxplot')
     # vyplotuji
     fig =  plt.figure()
     sns.boxplot(x = 'cab_type', y = 'price', data = df)
@@ -230,7 +237,7 @@ with vyvoj_poptavky:
     fig, ax =  plt.subplots()
     df2 = df2[['Uber', 'Lyft']]
     df2.plot.bar(figsize = (16,6), rot = 60, ax = ax);
-    plt.title('Počet zákazníků UBER x LYFT v jednolivých dnech', fontsize = 18)
+    plt.title('Počet zákazníků UBER x LYFT v jednotlivých dnech', fontsize = 18)
     plt.xlabel('')
     st.pyplot(fig)
     st.text("""
@@ -260,9 +267,9 @@ with vytizenost_po_dni:
 
     st.pyplot(fig)
     st.text("""
-        Co do počtu cest respektive cestujících v průběhu týdne, 
+        Co do počtu cest, respektive cestujících v průběhu týdne, 
         tak průměrně je nejvytíženějším dnem úterý, následuje pondělí. 
-        Nejklidnějším dnev je v souhrnu středa.
+        Nejklidnějším dnem je v souhrnu středa.
     """)
 
 
@@ -296,7 +303,7 @@ with cena:
 
     st.pyplot(fig)
     st.text("""
-        Zde vidíme, do jaké míry se překryvají ceny obou konturentů, 
+        Zde vidíme, do jaké míry se překryvají ceny obou konkurentů, 
         podíváme-li se na jejich rozložení... 
         Ve více jak desetitisících případech si Lyft naúčtoval cenu, 
         za kterou Uber vůbec nejezdil. Přečemž dle rozdělení Uber jezdí za všechny možné ceny, 
@@ -364,11 +371,12 @@ with cena_vzdalenost:
     df1_vzorek = df1.sample(100)
     df1_vzorek = df1_vzorek.copy()
     # zobrazeni prumerne ceny
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     plt.figure()
     sns.lmplot(x= 'distance', y= 'price', data= df1_vzorek, hue= 'cab_type')
     plt.title('Vztah mezi vzdáleností a cenou', fontsize= 18);
     st.pyplot()
-    st.set_option('deprecation.showPyplotGlobalUse', False)
+    #st.set_option('deprecation.showPyplotGlobalUse', False)
     st.text("""
     Graf popisuje vztah mezi ujetou vzdáleností a cenou. 
     Zde jsem pro vykreslení regresních přímek použil funkci "sample". 
@@ -392,7 +400,8 @@ with cena_tyden:
     plt.title('Cena v průběhu týdne Uber vs. Lyft', fontsize= 18);
     st.pyplot()
     st.text("""
-    U Lyftu jsou v průběhu celého týdne patrné frekventovanější nižší ceny oproti Uberu. 
+    Vesměs byly z náhodného výběru v průběhu celého týdne pozorovány nižší průměrné ceny u Lyftu...
+    (potvrzjí to náhodné testovací výběru pro 1000 vzorků)
     """)
 
 
